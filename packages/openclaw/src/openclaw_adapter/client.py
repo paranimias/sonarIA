@@ -1,9 +1,8 @@
 import json
 import os
 
-from openai import OpenAI
-
 from core.types import Completion, ToolCall
+from openai import OpenAI
 
 _STOP_REASON_MAP = {
     "stop": "end_turn",
