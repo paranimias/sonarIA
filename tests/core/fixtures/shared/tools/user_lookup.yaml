@@ -1,0 +1,6 @@
+name: user_lookup
+description: "Obtiene el perfil del usuario actual."
+input_schema:
+  type: object
+  properties: {}
+handler_module: "tests.core.fixtures.shared.tools.user_lookup"

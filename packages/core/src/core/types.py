@@ -1,5 +1,5 @@
-from dataclasses import dataclass
-from typing import Protocol, runtime_checkable
+from dataclasses import dataclass, field
+from typing import Callable, Protocol, runtime_checkable
 
 
 @dataclass
@@ -28,3 +28,29 @@ class AgentRuntime(Protocol):
         tools: list[dict],      # schemas tipo {name, description, input_schema}
         max_tokens: int,
     ) -> Completion: ...
+
+
+@dataclass
+class ToolDef:
+    name: str
+    description: str
+    input_schema: dict
+    handle: Callable[..., dict]
+
+    def to_schema(self) -> dict:
+        return {
+            "name": self.name,
+            "description": self.description,
+            "input_schema": self.input_schema,
+        }
+
+
+@dataclass
+class EffectiveConfig:
+    agent_id: str
+    model: str
+    system_blocks: list[dict]   # bloques listos para runtime.complete (con cache_control)
+    tool_defs: list[ToolDef]
+    conversation: dict          # {window_size, ttl_hours}
+    max_tokens: int
+    handles: list[str]          # tipos de mensaje aceptados: ["text", "audio", "image"]

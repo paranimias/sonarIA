@@ -1,0 +1,11 @@
+name: recommend_events
+description: "Recomienda eventos musicales en Bogotá."
+input_schema:
+  type: object
+  properties:
+    genre:
+      type: string
+    date:
+      type: string
+  required: []
+handler_module: "tests.core.fixtures.agent.tools.recommend_events"

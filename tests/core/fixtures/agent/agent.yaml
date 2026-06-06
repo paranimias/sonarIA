@@ -1,0 +1,9 @@
+agent_id: test-agent
+version: 0.1.0
+model: gpt-4o-mini
+handles: [text, audio]
+conversation:
+  window_size: 10
+  ttl_hours: 24
+max_tokens: 512
+required_skills_from_shared: [whatsapp-formatter]

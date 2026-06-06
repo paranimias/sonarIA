@@ -242,6 +242,12 @@ requires-dist = [
 name = "core"
 version = "0.1.0"
 source = { editable = "packages/core" }
+dependencies = [
+    { name = "pyyaml" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pyyaml", specifier = ">=6.0.3" }]
 
 [[package]]
 name = "cryptography"
