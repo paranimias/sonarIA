@@ -1,0 +1,6 @@
+{
+  "requestContext": { "http": { "method": "POST" } },
+  "headers": { "x-hub-signature-256": "__SIGNATURE__" },
+  "isBase64Encoded": false,
+  "body": "__BODY__"
+}
