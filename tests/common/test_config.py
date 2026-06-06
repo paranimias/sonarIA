@@ -1,7 +1,7 @@
-import pytest
 from pathlib import Path
 
-from common.config import load_yaml, load_agent_config, load_stages_config
+import pytest
+from common.config import load_agent_config, load_stages_config, load_yaml
 
 FIXTURES = Path(__file__).parent / "fixtures"
 

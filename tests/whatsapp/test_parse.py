@@ -2,7 +2,6 @@ import json
 from pathlib import Path
 
 import pytest
-
 from whatsapp.parse import parse_webhook
 
 FIXTURES = Path(__file__).parent / "fixtures"

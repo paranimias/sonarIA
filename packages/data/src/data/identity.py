@@ -1,7 +1,9 @@
 from boto3.dynamodb.conditions import Key
 
 
-def put_user(table, *, user_id: str, wa_id: str, full_name: str, email: str = "", role_name: str = "user") -> None:
+def put_user(
+    table, *, user_id: str, wa_id: str, full_name: str, email: str = "", role_name: str = "user"
+) -> None:
     table.put_item(Item={
         "PK": f"USER#{user_id}",
         "SK": "PROFILE",

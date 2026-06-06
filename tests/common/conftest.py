@@ -1,7 +1,6 @@
 import pytest
 from aws_lambda_powertools import Logger
 
-
 _CONTEXT_KEYS = ("phone_number", "user_id", "agent_id", "wamid")
 
 

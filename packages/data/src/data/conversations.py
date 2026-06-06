@@ -1,7 +1,9 @@
 from boto3.dynamodb.conditions import Key
 
 
-def append_turn(table, *, wa_id: str, index: int, role: str, content: str, meta: dict | None = None) -> None:
+def append_turn(
+    table, *, wa_id: str, index: int, role: str, content: str, meta: dict | None = None
+) -> None:
     table.put_item(Item={
         "PK": f"CONV#{wa_id}",
         "SK": f"TURN#{index:012d}",

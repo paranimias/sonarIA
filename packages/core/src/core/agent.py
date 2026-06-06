@@ -1,8 +1,7 @@
 from dataclasses import dataclass, field
-from pathlib import Path
 
 from .tools import dispatch
-from .types import AgentRuntime, Completion, EffectiveConfig, ToolCall
+from .types import AgentRuntime, Completion, EffectiveConfig
 
 MAX_ITERATIONS = 15
 

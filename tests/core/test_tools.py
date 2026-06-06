@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pytest
-
 from core.tools import dispatch, load_tools
 from core.types import ToolCall
 
@@ -48,6 +47,7 @@ def test_dispatch_unknown_tool_returns_error(tool_defs):
 
 def test_dispatch_handler_exception_returns_error():
     import json
+
     from core.types import ToolDef
 
     def bad_handle(inp, *, ctx):
@@ -63,6 +63,9 @@ def test_dispatch_handler_exception_returns_error():
 
 def test_to_schema():
     from core.types import ToolDef
-    td = ToolDef(name="my_tool", description="desc", input_schema={"type": "object"}, handle=lambda i, ctx: {})
+    td = ToolDef(
+        name="my_tool", description="desc",
+        input_schema={"type": "object"}, handle=lambda i, ctx: {},
+    )
     schema = td.to_schema()
     assert schema == {"name": "my_tool", "description": "desc", "input_schema": {"type": "object"}}

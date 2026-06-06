@@ -1,0 +1,7 @@
+name: user_lookup
+description: "Obtiene el perfil registrado del usuario actual (nombre, email, rol)."
+input_schema:
+  type: object
+  properties: {}
+  required: []
+handler_module: "shared.tools.user_lookup"

@@ -1,7 +1,6 @@
 from pathlib import Path
 
 import pytest
-
 from core.resolver import resolve
 
 SHARED = Path(__file__).parent / "fixtures" / "shared"
@@ -55,9 +54,11 @@ def test_tool_from_agent_present(cfg):
 
 
 def test_tools_disabled_excludes_tool():
-    from core.resolver import resolve as _resolve
-    import shutil, tempfile
+    import shutil
+    import tempfile
     from pathlib import Path
+
+    from core.resolver import resolve as _resolve
 
     with tempfile.TemporaryDirectory() as tmp:
         # Copy fixtures but add tools_disabled in agent.yaml
@@ -91,8 +92,14 @@ def test_agent_tool_overrides_shared_tool(tmp_path):
 
     import yaml
 
-    shared_yaml = {"name": "my_tool", "description": "shared version", "handler_module": "tests.core.fixtures.shared.tools.user_lookup"}
-    agent_yaml_tool = {"name": "my_tool", "description": "agent version", "handler_module": "tests.core.fixtures.agent.tools.recommend_events"}
+    shared_handler = "tests.core.fixtures.shared.tools.user_lookup"
+    agent_handler = "tests.core.fixtures.agent.tools.recommend_events"
+    shared_yaml = {
+        "name": "my_tool", "description": "shared version", "handler_module": shared_handler
+    }
+    agent_yaml_tool = {
+        "name": "my_tool", "description": "agent version", "handler_module": agent_handler
+    }
 
     with open(tmp_path / "shared" / "tools" / "my_tool.yaml", "w") as f:
         yaml.dump(shared_yaml, f)

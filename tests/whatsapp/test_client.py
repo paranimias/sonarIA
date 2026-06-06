@@ -2,7 +2,6 @@ import json
 
 import httpx
 import pytest
-
 from whatsapp.client import WhatsAppClient
 
 PHONE_NUMBER_ID = "TEST_PID"

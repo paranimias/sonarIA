@@ -1,6 +1,5 @@
 import boto3
 
-
 TABLE_NAME_ENV = "SONARIA_TABLE_NAME"
 _DEFAULT_TABLE = "sonaria-local"
 

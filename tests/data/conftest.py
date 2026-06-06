@@ -1,10 +1,8 @@
 import os
 
-import boto3
 import pytest
-from moto import mock_aws
-
 from data.table import create_table
+from moto import mock_aws
 
 TABLE_NAME = "sonaria-test"
 

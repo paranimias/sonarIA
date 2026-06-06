@@ -12,7 +12,8 @@ def test_append_and_get_single_turn(table):
 
 
 def test_get_turns_returns_oldest_first(table):
-    for i, (role, text) in enumerate([("user", "Hola"), ("assistant", "Buenas"), ("user", "Qué hay?")]):
+    turns_data = [("user", "Hola"), ("assistant", "Buenas"), ("user", "Qué hay?")]
+    for i, (role, text) in enumerate(turns_data):
         append_turn(table, wa_id=WA_ID, index=i, role=role, content=text)
 
     turns = get_turns(table, wa_id=WA_ID, n=10)

@@ -1,6 +1,4 @@
-import pytest
 from aws_lambda_powertools import Logger
-
 from common.logging import bind_context, log_turn_usage
 
 
@@ -10,7 +8,9 @@ def _fresh_logger() -> Logger:
 
 def test_bind_context_all_fields():
     logger = _fresh_logger()
-    bind_context(logger, phone_number="573001234567", user_id="u1", agent_id="sonaria", wamid="wamid_abc")
+    bind_context(
+        logger, phone_number="573001234567", user_id="u1", agent_id="sonaria", wamid="wamid_abc"
+    )
     assert logger.get_current_keys().get("phone_number") == "573001234567"
     assert logger.get_current_keys().get("user_id") == "u1"
     assert logger.get_current_keys().get("agent_id") == "sonaria"

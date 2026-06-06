@@ -1,8 +1,7 @@
 from pathlib import Path
 
 import pytest
-
-from core.agent import run_turn, MAX_ITERATIONS
+from core.agent import MAX_ITERATIONS, run_turn
 from core.resolver import resolve
 from core.types import Completion, ToolCall
 
@@ -26,7 +25,10 @@ class FakeRuntime:
 
 
 def _end_turn(text: str) -> Completion:
-    return Completion(text_blocks=[text], tool_calls=[], stop_reason="end_turn", usage={"input_tokens": 10, "output_tokens": 5})
+    return Completion(
+        text_blocks=[text], tool_calls=[], stop_reason="end_turn",
+        usage={"input_tokens": 10, "output_tokens": 5},
+    )
 
 
 def _tool_use(tool_name: str, tool_id: str = "tc1", tool_input: dict | None = None) -> Completion:

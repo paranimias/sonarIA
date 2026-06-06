@@ -1,0 +1,20 @@
+name: recommend_music
+description: "Recomienda playlists, álbumes o canciones según el gusto del usuario."
+input_schema:
+  type: object
+  properties:
+    genre:
+      type: string
+      description: "Género o subgénero musical"
+    mood:
+      type: string
+      description: "Estado de ánimo o momento (ej: 'para correr', 'para estudiar', 'fiesta')"
+    artist:
+      type: string
+      description: "Artista de referencia para encontrar música similar"
+    type:
+      type: string
+      enum: [playlist, album, song]
+      description: "Tipo de recomendación"
+  required: []
+handler_module: "agent.tools.recommend_music"

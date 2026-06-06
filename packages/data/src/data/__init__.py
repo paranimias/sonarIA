@@ -1,6 +1,6 @@
 from .conversations import append_turn, get_turns
-from .identity import get_by_id, put_user, resolve_by_phone
 from .idempotency import check_and_set
+from .identity import get_by_id, put_user, resolve_by_phone
 from .table import create_table, get_table
 
 __all__ = [

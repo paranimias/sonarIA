@@ -1,0 +1,16 @@
+name: recommend_events
+description: "Recomienda eventos musicales en Bogotá según género, fecha o artista."
+input_schema:
+  type: object
+  properties:
+    genre:
+      type: string
+      description: "Género musical (ej: jazz, salsa, rock, electrónica)"
+    date:
+      type: string
+      description: "Fecha en formato YYYY-MM-DD o expresión relativa ('este finde', 'esta semana')"
+    artist:
+      type: string
+      description: "Nombre del artista o banda"
+  required: []
+handler_module: "agent.tools.recommend_events"

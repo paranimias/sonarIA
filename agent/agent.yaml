@@ -1,0 +1,14 @@
+agent_id: sonaria-bogota
+version: 0.1.0
+model: gpt-4o-mini
+meta:
+  app_id: ""       # set via SSM in prod
+  waba_id: ""      # set via SSM in prod
+required_skills_from_shared: [whatsapp-formatter]
+default_tools: []
+tools_disabled: []
+handles: [text, audio, image]
+conversation:
+  window_size: 20
+  ttl_hours: 72
+max_tokens: 1024
