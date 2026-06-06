@@ -1,0 +1,28 @@
+# Credenciales — nunca al repo
+API.sh
+
+# Documentación interna
+SPEC.md
+.env
+.env.*
+*.pem
+*.key
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+*.egg-info/
+dist/
+.pytest_cache/
+.ruff_cache/
+
+# CDK
+cdk.out/
+infra/cdk.out/
+
+# uv
+.uv/
+
+# OS
+.DS_Store
