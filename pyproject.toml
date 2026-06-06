@@ -10,10 +10,12 @@ members = ["packages/*"]
 dev = [
     "ruff>=0.8",
     "pytest>=8.0",
+    "moto[dynamodb]>=5.0",
     "common",
     "core",
     "openclaw-adapter",
     "whatsapp",
+    "data",
 ]
 
 [tool.ruff]
@@ -31,3 +33,4 @@ common = { workspace = true }
 core = { workspace = true }
 openclaw-adapter = { workspace = true }
 whatsapp = { workspace = true }
+data = { workspace = true }
