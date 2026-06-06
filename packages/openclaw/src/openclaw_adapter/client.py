@@ -39,12 +39,11 @@ class OpenAIRuntime:
 
 # --- format translation ---
 
+
 def _build_messages(system: list[dict], messages: list[dict]) -> list[dict]:
     result: list[dict] = []
 
-    system_text = "\n\n".join(
-        b.get("text", "") for b in system if b.get("type") == "text"
-    )
+    system_text = "\n\n".join(b.get("text", "") for b in system if b.get("type") == "text")
     if system_text:
         result.append({"role": "system", "content": system_text})
 

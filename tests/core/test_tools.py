@@ -30,6 +30,7 @@ def test_tool_def_has_callable_handle(tool_defs):
 
 def test_dispatch_returns_json_string(tool_defs):
     import json
+
     tc = ToolCall(id="tc1", name="recommend_events", input={"genre": "rock"})
     result = dispatch(tc, tool_defs, ctx={})
     parsed = json.loads(result)
@@ -38,6 +39,7 @@ def test_dispatch_returns_json_string(tool_defs):
 
 def test_dispatch_unknown_tool_returns_error(tool_defs):
     import json
+
     tc = ToolCall(id="tc2", name="nonexistent_tool", input={})
     result = dispatch(tc, tool_defs, ctx={})
     parsed = json.loads(result)
@@ -63,9 +65,12 @@ def test_dispatch_handler_exception_returns_error():
 
 def test_to_schema():
     from core.types import ToolDef
+
     td = ToolDef(
-        name="my_tool", description="desc",
-        input_schema={"type": "object"}, handle=lambda i, ctx: {},
+        name="my_tool",
+        description="desc",
+        input_schema={"type": "object"},
+        handle=lambda i, ctx: {},
     )
     schema = td.to_schema()
     assert schema == {"name": "my_tool", "description": "desc", "input_schema": {"type": "object"}}

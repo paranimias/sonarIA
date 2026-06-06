@@ -46,13 +46,17 @@ def test_parse_empty_payload():
 
 def test_parse_status_update_ignored():
     payload = {
-        "entry": [{
-            "changes": [{
-                "value": {
-                    "metadata": {"phone_number_id": "PID"},
-                    "statuses": [{"id": "wamid.XYZ", "status": "delivered"}]
-                }
-            }]
-        }]
+        "entry": [
+            {
+                "changes": [
+                    {
+                        "value": {
+                            "metadata": {"phone_number_id": "PID"},
+                            "statuses": [{"id": "wamid.XYZ", "status": "delivered"}],
+                        }
+                    }
+                ]
+            }
+        ]
     }
     assert parse_webhook(payload) == []

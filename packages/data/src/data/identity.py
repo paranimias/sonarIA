@@ -4,17 +4,19 @@ from boto3.dynamodb.conditions import Key
 def put_user(
     table, *, user_id: str, wa_id: str, full_name: str, email: str = "", role_name: str = "user"
 ) -> None:
-    table.put_item(Item={
-        "PK": f"USER#{user_id}",
-        "SK": "PROFILE",
-        "GSI1PK": f"PHONE#{wa_id}",
-        "GSI1SK": f"USER#{user_id}",
-        "user_id": user_id,
-        "wa_id": wa_id,
-        "full_name": full_name,
-        "email": email,
-        "role_name": role_name,
-    })
+    table.put_item(
+        Item={
+            "PK": f"USER#{user_id}",
+            "SK": "PROFILE",
+            "GSI1PK": f"PHONE#{wa_id}",
+            "GSI1SK": f"USER#{user_id}",
+            "user_id": user_id,
+            "wa_id": wa_id,
+            "full_name": full_name,
+            "email": email,
+            "role_name": role_name,
+        }
+    )
 
 
 def resolve_by_phone(table, *, wa_id: str) -> list[dict]:

@@ -1,4 +1,5 @@
 """Integration test: resolver loads the real agent/ + shared/ content."""
+
 from pathlib import Path
 
 import pytest

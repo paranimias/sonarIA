@@ -15,12 +15,16 @@ def bind_context(
     agent_id: str | None = None,
     wamid: str | None = None,
 ) -> None:
-    ctx = {k: v for k, v in {
-        "phone_number": phone_number,
-        "user_id": user_id,
-        "agent_id": agent_id,
-        "wamid": wamid,
-    }.items() if v is not None}
+    ctx = {
+        k: v
+        for k, v in {
+            "phone_number": phone_number,
+            "user_id": user_id,
+            "agent_id": agent_id,
+            "wamid": wamid,
+        }.items()
+        if v is not None
+    }
     logger.append_keys(**ctx)
 
 

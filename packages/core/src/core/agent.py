@@ -49,9 +49,7 @@ def run_turn(
             )
 
         # Append assistant message with tool_use blocks
-        assistant_content = [
-            {"type": "text", "text": t} for t in completion.text_blocks if t
-        ] + [
+        assistant_content = [{"type": "text", "text": t} for t in completion.text_blocks if t] + [
             {"type": "tool_use", "id": tc.id, "name": tc.name, "input": tc.input}
             for tc in completion.tool_calls
         ]
@@ -62,11 +60,13 @@ def run_turn(
         for tc in completion.tool_calls:
             tools_used.append(tc.name)
             result_json = dispatch(tc, config.tool_defs, ctx)
-            tool_results.append({
-                "type": "tool_result",
-                "tool_use_id": tc.id,
-                "content": result_json,
-            })
+            tool_results.append(
+                {
+                    "type": "tool_result",
+                    "tool_use_id": tc.id,
+                    "content": result_json,
+                }
+            )
 
         current_messages.append({"role": "user", "content": tool_results})
 

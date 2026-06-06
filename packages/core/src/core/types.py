@@ -13,8 +13,8 @@ class ToolCall:
 class Completion:
     text_blocks: list[str]
     tool_calls: list[ToolCall]
-    stop_reason: str    # "end_turn" | "tool_use" | "max_tokens"
-    usage: dict         # input_tokens, output_tokens
+    stop_reason: str  # "end_turn" | "tool_use" | "max_tokens"
+    usage: dict  # input_tokens, output_tokens
 
 
 @runtime_checkable
@@ -23,9 +23,9 @@ class AgentRuntime(Protocol):
         self,
         *,
         model: str,
-        system: list[dict],     # bloques {type, text, cache_control?}
-        messages: list[dict],   # historial user/assistant/tool_result
-        tools: list[dict],      # schemas tipo {name, description, input_schema}
+        system: list[dict],  # bloques {type, text, cache_control?}
+        messages: list[dict],  # historial user/assistant/tool_result
+        tools: list[dict],  # schemas tipo {name, description, input_schema}
         max_tokens: int,
     ) -> Completion: ...
 
@@ -49,8 +49,8 @@ class ToolDef:
 class EffectiveConfig:
     agent_id: str
     model: str
-    system_blocks: list[dict]   # bloques listos para runtime.complete (con cache_control)
+    system_blocks: list[dict]  # bloques listos para runtime.complete (con cache_control)
     tool_defs: list[ToolDef]
-    conversation: dict          # {window_size, ttl_hours}
+    conversation: dict  # {window_size, ttl_hours}
     max_tokens: int
-    handles: list[str]          # tipos de mensaje aceptados: ["text", "audio", "image"]
+    handles: list[str]  # tipos de mensaje aceptados: ["text", "audio", "image"]

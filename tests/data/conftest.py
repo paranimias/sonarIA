@@ -23,5 +23,6 @@ def table(aws_credentials):
         tbl = create_table(TABLE_NAME)
         tbl.wait_until_exists()
         import boto3
+
         dynamodb = boto3.resource("dynamodb", region_name="us-east-1")
         yield dynamodb.Table(TABLE_NAME)

@@ -41,6 +41,7 @@ def resolve(shared_dir: str | Path, agent_dir: str | Path) -> EffectiveConfig:
 
 # --- internals ---
 
+
 def _load_yaml(path: Path) -> dict:
     if not path.exists():
         return {}

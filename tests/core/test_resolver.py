@@ -63,6 +63,7 @@ def test_tools_disabled_excludes_tool():
     with tempfile.TemporaryDirectory() as tmp:
         # Copy fixtures but add tools_disabled in agent.yaml
         import yaml
+
         agent_dir = Path(tmp) / "agent"
         agent_dir.mkdir()
         (agent_dir / "tools").mkdir()
@@ -72,11 +73,14 @@ def test_tools_disabled_excludes_tool():
         (agent_dir / "tools" / "__init__.py").touch()
         # Write agent.yaml with tools_disabled
         with open(agent_dir / "agent.yaml", "w") as f:
-            yaml.dump({
-                "agent_id": "test",
-                "model": "gpt-4o-mini",
-                "tools_disabled": ["recommend_events"],
-            }, f)
+            yaml.dump(
+                {
+                    "agent_id": "test",
+                    "model": "gpt-4o-mini",
+                    "tools_disabled": ["recommend_events"],
+                },
+                f,
+            )
 
         cfg = _resolve(SHARED, agent_dir)
         names = [t.name for t in cfg.tool_defs]
@@ -95,10 +99,14 @@ def test_agent_tool_overrides_shared_tool(tmp_path):
     shared_handler = "tests.core.fixtures.shared.tools.user_lookup"
     agent_handler = "tests.core.fixtures.agent.tools.recommend_events"
     shared_yaml = {
-        "name": "my_tool", "description": "shared version", "handler_module": shared_handler
+        "name": "my_tool",
+        "description": "shared version",
+        "handler_module": shared_handler,
     }
     agent_yaml_tool = {
-        "name": "my_tool", "description": "agent version", "handler_module": agent_handler
+        "name": "my_tool",
+        "description": "agent version",
+        "handler_module": agent_handler,
     }
 
     with open(tmp_path / "shared" / "tools" / "my_tool.yaml", "w") as f:

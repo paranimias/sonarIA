@@ -26,7 +26,9 @@ class FakeRuntime:
 
 def _end_turn(text: str) -> Completion:
     return Completion(
-        text_blocks=[text], tool_calls=[], stop_reason="end_turn",
+        text_blocks=[text],
+        tool_calls=[],
+        stop_reason="end_turn",
         usage={"input_tokens": 10, "output_tokens": 5},
     )
 
@@ -54,10 +56,12 @@ def test_simple_text_turn(config):
 
 
 def test_turn_with_tool_call(config):
-    runtime = FakeRuntime([
-        _tool_use("recommend_events", tool_id="tc1", tool_input={"genre": "jazz"}),
-        _end_turn("Te recomiendo este evento de jazz"),
-    ])
+    runtime = FakeRuntime(
+        [
+            _tool_use("recommend_events", tool_id="tc1", tool_input={"genre": "jazz"}),
+            _end_turn("Te recomiendo este evento de jazz"),
+        ]
+    )
     result = run_turn(runtime=runtime, config=config, messages=[], ctx={})
     assert result.text == "Te recomiendo este evento de jazz"
     assert result.iterations == 2
@@ -65,10 +69,12 @@ def test_turn_with_tool_call(config):
 
 
 def test_turn_accumulates_usage(config):
-    runtime = FakeRuntime([
-        _tool_use("recommend_events"),
-        _end_turn("Listo"),
-    ])
+    runtime = FakeRuntime(
+        [
+            _tool_use("recommend_events"),
+            _end_turn("Listo"),
+        ]
+    )
     result = run_turn(runtime=runtime, config=config, messages=[], ctx={})
     assert result.usage["input_tokens"] == 30  # 20 + 10
     assert result.usage["output_tokens"] == 15  # 10 + 5
@@ -83,10 +89,12 @@ def test_turn_respects_max_iterations(config):
 
 
 def test_turn_with_unknown_tool_does_not_crash(config):
-    runtime = FakeRuntime([
-        _tool_use("unknown_tool"),
-        _end_turn("Respondí igual"),
-    ])
+    runtime = FakeRuntime(
+        [
+            _tool_use("unknown_tool"),
+            _end_turn("Respondí igual"),
+        ]
+    )
     result = run_turn(runtime=runtime, config=config, messages=[], ctx={})
     assert result.text == "Respondí igual"
     assert "unknown_tool" in result.tools_used

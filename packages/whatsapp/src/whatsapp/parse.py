@@ -4,10 +4,10 @@ from dataclasses import dataclass
 @dataclass
 class IncomingMessage:
     phone_number_id: str
-    wa_id: str          # opaque sender identifier
-    wamid: str          # unique message id
-    message_type: str   # "text" | "audio" | "image" | "document" | "video" | "unknown"
-    text: str | None    # populated for text messages and after media transcription
+    wa_id: str  # opaque sender identifier
+    wamid: str  # unique message id
+    message_type: str  # "text" | "audio" | "image" | "document" | "video" | "unknown"
+    text: str | None  # populated for text messages and after media transcription
     media_id: str | None = None  # populated for media messages
 
 
@@ -37,13 +37,15 @@ def parse_webhook(payload: dict) -> list[IncomingMessage]:
                 elif msg_type in ("audio", "image", "video", "document", "sticker"):
                     media_id = msg.get(msg_type, {}).get("id")
 
-                messages.append(IncomingMessage(
-                    phone_number_id=phone_number_id,
-                    wa_id=wa_id,
-                    wamid=wamid,
-                    message_type=msg_type,
-                    text=text,
-                    media_id=media_id,
-                ))
+                messages.append(
+                    IncomingMessage(
+                        phone_number_id=phone_number_id,
+                        wa_id=wa_id,
+                        wamid=wamid,
+                        message_type=msg_type,
+                        text=text,
+                        media_id=media_id,
+                    )
+                )
 
     return messages
