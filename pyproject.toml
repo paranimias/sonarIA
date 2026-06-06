@@ -10,6 +10,9 @@ members = ["packages/*"]
 dev = [
     "ruff>=0.8",
     "pytest>=8.0",
+    "common",
+    "core",
+    "openclaw-adapter",
 ]
 
 [tool.ruff]
@@ -21,3 +24,8 @@ select = ["E", "F", "I"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+
+[tool.uv.sources]
+common = { workspace = true }
+core = { workspace = true }
+openclaw-adapter = { workspace = true }
