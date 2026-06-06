@@ -13,6 +13,7 @@ dev = [
     "common",
     "core",
     "openclaw-adapter",
+    "whatsapp",
 ]
 
 [tool.ruff]
@@ -29,3 +30,4 @@ testpaths = ["tests"]
 common = { workspace = true }
 core = { workspace = true }
 openclaw-adapter = { workspace = true }
+whatsapp = { workspace = true }

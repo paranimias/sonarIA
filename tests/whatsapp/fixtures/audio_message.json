@@ -1,0 +1,38 @@
+{
+  "object": "whatsapp_business_account",
+  "entry": [
+    {
+      "id": "WABA_ID",
+      "changes": [
+        {
+          "value": {
+            "messaging_product": "whatsapp",
+            "metadata": {
+              "display_phone_number": "573001234567",
+              "phone_number_id": "PHONE_NUMBER_ID"
+            },
+            "contacts": [
+              {
+                "profile": { "name": "Joel" },
+                "wa_id": "573009876543"
+              }
+            ],
+            "messages": [
+              {
+                "from": "573009876543",
+                "id": "wamid.AUDIO456",
+                "timestamp": "1700000001",
+                "type": "audio",
+                "audio": {
+                  "id": "MEDIA_ID_AUDIO",
+                  "mime_type": "audio/ogg; codecs=opus"
+                }
+              }
+            ]
+          },
+          "field": "messages"
+        }
+      ]
+    }
+  ]
+}
