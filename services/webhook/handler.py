@@ -57,6 +57,9 @@ def _handle_webhook(event: dict) -> dict:
     table = get_table(_cfg("SONARIA_TABLE_NAME", "sonaria"))
 
     for msg in messages:
+        if msg.message_type != "text":
+            continue  # MVP: text-only
+
         if not check_and_set(table, wamid=msg.wamid):
             continue  # duplicate
 

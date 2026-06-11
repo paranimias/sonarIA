@@ -113,6 +113,44 @@ def test_duplicate_wamid_not_enqueued_twice(aws_mock):
     assert len(msgs) == 1
 
 
+def test_media_message_not_enqueued(aws_mock):
+    payload = {
+        "object": "whatsapp_business_account",
+        "entry": [
+            {
+                "changes": [
+                    {
+                        "value": {
+                            "messaging_product": "whatsapp",
+                            "metadata": {"phone_number_id": "PID"},
+                            "messages": [
+                                {
+                                    "from": "573009876543",
+                                    "id": "wamid.AUDIO001",
+                                    "timestamp": "1700000000",
+                                    "type": "audio",
+                                    "audio": {"id": "media_abc"},
+                                }
+                            ],
+                        },
+                        "field": "messages",
+                    }
+                ]
+            }
+        ],
+    }
+    event = make_post_event(payload)
+    resp = wh.handler(event, None)
+
+    assert resp["statusCode"] == 200
+    msgs = (
+        aws_mock["sqs"]
+        .receive_message(QueueUrl=aws_mock["queue_url"], MaxNumberOfMessages=1)
+        .get("Messages", [])
+    )
+    assert len(msgs) == 0
+
+
 def test_status_update_not_enqueued(aws_mock):
     payload = {
         "object": "whatsapp_business_account",

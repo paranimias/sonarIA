@@ -7,7 +7,7 @@ meta:
 required_skills_from_shared: [whatsapp-formatter]
 default_tools: []
 tools_disabled: []
-handles: [text, audio, image]
+handles: [text]
 conversation:
   window_size: 20
   ttl_hours: 72
