@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SonarIA — Tu guía musical en Bogotá</title>
+  <meta name="description" content="SonarIA es un bot de WhatsApp que te recomienda eventos musicales y música en Bogotá." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #181818;
+      --border: #2a2a2a;
+      --accent: #1db954;
+      --accent-dim: #17a349;
+      --text: #f0f0f0;
+      --muted: #888;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* NAV */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+    .nav-logo span { color: var(--accent); }
+    nav a { color: var(--muted); font-size: 0.875rem; }
+    nav a:hover { color: var(--text); text-decoration: none; }
+
+    /* HERO */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 6rem 2rem 4rem;
+      gap: 1.5rem;
+    }
+    .hero-badge {
+      background: #1a2e1f;
+      color: var(--accent);
+      border: 1px solid #2d4d33;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      max-width: 520px;
+      color: var(--muted);
+      font-size: 1.125rem;
+    }
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #000;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      border-radius: 999px;
+      transition: background 0.2s;
+    }
+    .cta-btn:hover { background: var(--accent-dim); text-decoration: none; }
+
+    /* FEATURES */
+    .section { padding: 5rem 2rem; max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .section-sub { color: var(--muted); max-width: 480px; margin-bottom: 3rem; }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+    }
+    .card-icon {
+      font-size: 1.75rem;
+      margin-bottom: 1rem;
+    }
+    .card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .card p { color: var(--muted); font-size: 0.9rem; }
+
+    /* HOW IT WORKS */
+    .steps { display: flex; flex-direction: column; gap: 1.5rem; }
+    .step {
+      display: grid;
+      grid-template-columns: 2.5rem 1fr;
+      gap: 1rem;
+      align-items: start;
+    }
+    .step-num {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    .step h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .step p { color: var(--muted); font-size: 0.9rem; }
+
+    /* DIVIDER */
+    .divider { border: none; border-top: 1px solid var(--border); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .hero { padding: 4rem 1.25rem 3rem; }
+      .section { padding: 3.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">Sonar<span>IA</span></span>
+    <a href="privacy-policy.html">Privacidad</a>
+  </nav>
+
+  <header class="hero">
+    <span class="hero-badge">Bot de WhatsApp · Bogotá</span>
+    <h1>Tu guía musical<br/>en <span>Bogotá</span></h1>
+    <p>SonarIA es tu asistente de WhatsApp para descubrir eventos en vivo y música nueva, personalizado para ti.</p>
+    <a class="cta-btn" href="https://wa.me/57" target="_blank" rel="noopener">
+      Hablar con SonarIA &rarr;
+    </a>
+  </header>
+
+  <hr class="divider" />
+
+  <main>
+    <section class="section">
+      <div class="section-label">Funcionalidades</div>
+      <h2>Todo lo que necesitas saber</h2>
+      <p class="section-sub">Desde conciertos hasta recomendaciones de artistas, sin salir de WhatsApp.</p>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">🎵</div>
+          <h3>Recomendaciones musicales</h3>
+          <p>Cuéntale qué artistas te gustan y SonarIA te sugiere música nueva que encaja contigo.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎤</div>
+          <h3>Eventos en Bogotá</h3>
+          <p>Conciertos, festivales y shows en vivo. Entérate antes de que se agoten las entradas.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💬</div>
+          <h3>Solo por WhatsApp</h3>
+          <p>Sin apps adicionales. Escríbele desde tu número de siempre, cuando quieras.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤖</div>
+          <h3>Impulsado por IA</h3>
+          <p>Entiende lenguaje natural. Pregunta como hablarías con un amigo que sabe de música.</p>
+        </div>
+      </div>
+    </section>
+
+    <hr class="divider" />
+
+    <section class="section">
+      <div class="section-label">¿Cómo funciona?</div>
+      <h2>Tres pasos</h2>
+      <p class="section-sub">Empezar es sencillo.</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Escríbele a SonarIA por WhatsApp</h4>
+            <p>Envíale un saludo o cuéntale qué tipo de música escuchas.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Dile qué quieres descubrir</h4>
+            <p>"¿Qué eventos hay este fin de semana?" o "Recomiéndame algo similar a X artista."</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Recibe tu recomendación</h4>
+            <p>SonarIA responde en segundos con sugerencias personalizadas para ti.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>SonarIA</strong>
+    <div>
+      <a href="privacy-policy.html">Política de privacidad</a>
+    </div>
+    <span>&copy; 2026 SonarIA. Bogotá, Colombia.</span>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidad — SonarIA</title>
+  <meta name="description" content="Política de privacidad de SonarIA, bot de WhatsApp para recomendaciones musicales en Bogotá." />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #181818;
+      --border: #2a2a2a;
+      --accent: #1db954;
+      --text: #f0f0f0;
+      --muted: #888;
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 2rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 10;
+    }
+    .nav-logo { font-size: 1.25rem; font-weight: 700; color: var(--text); }
+    .nav-logo span { color: var(--accent); }
+    nav a.back { color: var(--muted); font-size: 0.875rem; }
+    nav a.back:hover { color: var(--text); text-decoration: none; }
+
+    .page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 4rem 2rem 6rem;
+    }
+
+    .page-label {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.75rem;
+    }
+
+    h1 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .meta { color: var(--muted); font-size: 0.875rem; margin-bottom: 3rem; }
+
+    .toc {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .toc p { font-weight: 600; margin-bottom: 0.75rem; font-size: 0.9rem; }
+    .toc ol { padding-left: 1.25rem; }
+    .toc li { font-size: 0.875rem; margin-bottom: 0.35rem; }
+
+    section { margin-bottom: 2.75rem; }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    p { color: #ccc; margin-bottom: 1rem; font-size: 0.95rem; }
+    p:last-child { margin-bottom: 0; }
+
+    ul, ol { padding-left: 1.5rem; color: #ccc; font-size: 0.95rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.4rem; }
+
+    .highlight {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    address { font-style: normal; color: #ccc; font-size: 0.95rem; }
+    address a { color: var(--accent); }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    footer a { color: var(--muted); }
+    footer a:hover { color: var(--text); }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem; }
+      .page { padding: 3rem 1.25rem 5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Sonar<span>IA</span></a>
+    <a href="index.html" class="back">&larr; Inicio</a>
+  </nav>
+
+  <main class="page">
+    <div class="page-label">Legal</div>
+    <h1>Política de Privacidad</h1>
+    <p class="meta">Última actualización: 20 de junio de 2026</p>
+
+    <nav class="toc" aria-label="Tabla de contenidos">
+      <p>Contenido</p>
+      <ol>
+        <li><a href="#informacion">Información que recopilamos</a></li>
+        <li><a href="#uso">Cómo usamos tu información</a></li>
+        <li><a href="#almacenamiento">Almacenamiento y seguridad</a></li>
+        <li><a href="#compartir">Compartir datos con terceros</a></li>
+        <li><a href="#derechos">Tus derechos</a></li>
+        <li><a href="#menores">Menores de edad</a></li>
+        <li><a href="#cambios">Cambios a esta política</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ol>
+    </nav>
+
+    <div class="highlight">
+      SonarIA es un bot de WhatsApp que ofrece recomendaciones musicales y de eventos en Bogotá. Esta política explica qué datos tratamos, por qué y cómo los protegemos.
+    </div>
+
+    <section id="informacion">
+      <h2>1. Información que recopilamos</h2>
+      <p>Cuando interactúas con SonarIA a través de WhatsApp, procesamos los siguientes datos:</p>
+      <ul>
+        <li><strong>Número de teléfono de WhatsApp:</strong> identificador único necesario para enviarte respuestas.</li>
+        <li><strong>Contenido de los mensajes:</strong> los textos que nos envías para generar recomendaciones personalizadas.</li>
+        <li><strong>Historial de conversación:</strong> guardamos el contexto reciente de la conversación para que las respuestas sean coherentes.</li>
+        <li><strong>Metadatos de mensajes:</strong> marca de tiempo y tipo de mensaje (texto), proporcionados por la API de Meta.</li>
+      </ul>
+      <p>No recopilamos nombre, correo electrónico, ubicación precisa ni ningún otro dato personal más allá de los indicados.</p>
+    </section>
+
+    <section id="uso">
+      <h2>2. Cómo usamos tu información</h2>
+      <p>Usamos los datos únicamente para:</p>
+      <ul>
+        <li>Procesar tus mensajes y generar recomendaciones musicales o de eventos.</li>
+        <li>Mantener el contexto de la conversación durante la sesión.</li>
+        <li>Mejorar la calidad del servicio (análisis de uso agregado y anónimo).</li>
+        <li>Garantizar la seguridad y prevenir el abuso del servicio.</li>
+      </ul>
+      <p>No utilizamos tus datos para publicidad, perfilado comercial ni los vendemos a terceros.</p>
+    </section>
+
+    <section id="almacenamiento">
+      <h2>3. Almacenamiento y seguridad</h2>
+      <p>Los datos se almacenan en infraestructura de Amazon Web Services (AWS) en la región <strong>us-east-1 (Virginia del Norte, EE. UU.)</strong>, incluyendo:</p>
+      <ul>
+        <li><strong>Amazon DynamoDB:</strong> historial de conversaciones.</li>
+        <li><strong>Amazon SQS:</strong> cola de mensajes en tránsito (procesado y eliminado automáticamente).</li>
+      </ul>
+      <p>El historial de conversaciones se conserva durante <strong>90 días</strong> desde el último mensaje. Aplicamos cifrado en tránsito (TLS) y en reposo en todos los servicios.</p>
+      <p>El acceso a los datos está restringido al equipo técnico de SonarIA mediante roles IAM con privilegio mínimo.</p>
+    </section>
+
+    <section id="compartir">
+      <h2>4. Compartir datos con terceros</h2>
+      <p>Para operar el servicio, compartimos datos con los siguientes proveedores bajo acuerdos de procesamiento de datos:</p>
+      <ul>
+        <li><strong>Meta Platforms (WhatsApp Business API):</strong> los mensajes transitan por la infraestructura de Meta. Consulta su <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">política de privacidad</a>.</li>
+        <li><strong>OpenAI:</strong> el texto de tus mensajes se envía a la API de OpenAI para generar respuestas. Consulta la <a href="https://openai.com/policies/privacy-policy" target="_blank" rel="noopener">política de privacidad de OpenAI</a>. No usamos sus datos para entrenar modelos.</li>
+        <li><strong>Amazon Web Services:</strong> infraestructura de computación y almacenamiento.</li>
+      </ul>
+      <p>No compartimos datos con ningún otro tercero salvo obligación legal.</p>
+    </section>
+
+    <section id="derechos">
+      <h2>5. Tus derechos</h2>
+      <p>De acuerdo con la Ley 1581 de 2012 (Habeas Data, Colombia) tienes derecho a:</p>
+      <ul>
+        <li><strong>Acceso:</strong> solicitar qué datos tenemos sobre ti.</li>
+        <li><strong>Rectificación:</strong> pedir corrección de datos inexactos.</li>
+        <li><strong>Eliminación:</strong> solicitar el borrado de tu historial de conversaciones.</li>
+        <li><strong>Portabilidad:</strong> recibir una copia de tus datos en formato legible.</li>
+        <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos.</li>
+      </ul>
+      <p>Para ejercer cualquiera de estos derechos, escríbenos a la dirección indicada en la sección de Contacto. Responderemos en un plazo máximo de 15 días hábiles.</p>
+    </section>
+
+    <section id="menores">
+      <h2>6. Menores de edad</h2>
+      <p>SonarIA no está dirigido a menores de 13 años. Si detectamos que un usuario es menor de esa edad, eliminaremos su información de manera inmediata. Si eres padre o tutor y crees que tu hijo/a ha utilizado el servicio, contáctanos.</p>
+    </section>
+
+    <section id="cambios">
+      <h2>7. Cambios a esta política</h2>
+      <p>Podemos actualizar esta política periódicamente. Cuando lo hagamos, actualizaremos la fecha de "Última actualización" en la parte superior. Los cambios significativos se notificarán a través del propio bot de WhatsApp.</p>
+      <p>El uso continuado del servicio tras la notificación implica la aceptación de los cambios.</p>
+    </section>
+
+    <section id="contacto">
+      <h2>8. Contacto</h2>
+      <p>Si tienes preguntas sobre esta política o quieres ejercer tus derechos de datos, contáctanos:</p>
+      <address>
+        <strong>SonarIA</strong><br />
+        Bogotá, Colombia<br />
+        Repositorio: <a href="https://github.com/paranimias/sonarIA" target="_blank" rel="noopener">github.com/paranimias/sonarIA</a>
+      </address>
+    </section>
+  </main>
+
+  <footer>
+    <strong>SonarIA</strong>
+    <div>
+      <a href="index.html">Inicio</a>
+    </div>
+    <span>&copy; 2026 SonarIA. Bogotá, Colombia.</span>
+  </footer>
+
+</body>
+</html>
