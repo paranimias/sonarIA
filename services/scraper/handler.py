@@ -42,7 +42,7 @@ def handler(event: dict, context) -> dict:
     # Deduplicate by SK before writing (batch_writer rejects duplicates in same batch)
     items_by_sk: dict[str, dict] = {}
     for ev in all_events:
-        key_src = f"{ev['source']}:{ev.get('url') or ev['title']}:{ev.get('date', '')}"
+        key_src = f"{ev['source']}:{ev['title']}:{ev.get('url', '')}:{ev.get('date', '')}"
         sk = f"EVENT#{ev['source']}#{hashlib.md5(key_src.encode()).hexdigest()[:16]}"
         items_by_sk[sk] = {
             "PK": "EVENTS",
