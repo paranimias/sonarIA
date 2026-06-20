@@ -14,10 +14,14 @@ _HEADERS = {
 }
 
 _SOURCES = [
+    ("eventbrite", "https://www.eventbrite.co/d/colombia--bogot%C3%A1/concerts/"),
     ("tuboleta", "https://www.tuboleta.com/eventos/categoria/musica"),
     ("ticketmaster", "https://www.ticketmaster.com.co/es/events"),
     ("bogota_gov", "https://bogota.gov.co/que-hacer/agenda-cultural"),
 ]
+
+# Sources whose URLs are music-specific — tag all their events with genre=música
+_MUSIC_SOURCES = {"eventbrite", "tuboleta", "ticketmaster"}
 
 _TTL_SECONDS = 48 * 3600  # events expire after 48 h
 
@@ -119,7 +123,7 @@ def _norm_jsonld(item: dict, *, source: str) -> dict | None:
         p = str(offers.get("price") or "")
         cur = offers.get("priceCurrency", "COP")
         price = f"{cur} {p}".strip() if p else ""
-    return {
+    ev = {
         "title": title,
         "date": item.get("startDate", ""),
         "venue": venue,
@@ -127,6 +131,9 @@ def _norm_jsonld(item: dict, *, source: str) -> dict | None:
         "url": item.get("url", ""),
         "source": source,
     }
+    if source in _MUSIC_SOURCES or item.get("@type") == "MusicEvent":
+        ev["genre"] = "música"
+    return ev
 
 
 # ── Next.js embedded JSON ─────────────────────────────────────────────────────

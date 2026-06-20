@@ -1,8 +1,10 @@
 name: recommend_events
 description: >
-  Busca eventos musicales en Bogotá scrapeando tuboleta.com,
-  ticketmaster.com.co y la agenda cultural oficial de Bogotá.
-  Filtra por género, fecha o artista.
+  Consulta la base de datos de eventos en Bogotá (actualizada diariamente).
+  Incluye conciertos de Eventbrite, tuboleta y la agenda cultural de Bogotá.
+  Llama sin filtros para ver todos los eventos disponibles.
+  Usa genre solo para géneros específicos como jazz, rock, salsa, electrónica.
+  Para preguntas generales sobre eventos o conciertos, no uses el parámetro genre.
 input_schema:
   type: object
   properties:
