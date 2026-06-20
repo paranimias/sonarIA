@@ -16,7 +16,11 @@ def handle(tool_input: dict, *, ctx: dict) -> dict:
         KeyConditionExpression=Key("PK").eq("EVENTS") & Key("SK").begins_with("EVENT#"),
         Limit=100,
     )
-    events: list[dict] = resp.get("Items", [])
+    _INTERNAL = {"PK", "SK", "ttl"}
+    events: list[dict] = [
+        {k: v for k, v in item.items() if k not in _INTERNAL}
+        for item in resp.get("Items", [])
+    ]
 
     if artist:
         events = [e for e in events if artist in e.get("title", "").lower()]
