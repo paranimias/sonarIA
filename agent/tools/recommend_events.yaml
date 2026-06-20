@@ -1,14 +1,17 @@
 name: recommend_events
-description: "Recomienda eventos musicales en Bogotá según género, fecha o artista."
+description: >
+  Busca eventos musicales en Bogotá scrapeando tuboleta.com,
+  ticketmaster.com.co y la agenda cultural oficial de Bogotá.
+  Filtra por género, fecha o artista.
 input_schema:
   type: object
   properties:
     genre:
       type: string
-      description: "Género musical (ej: jazz, salsa, rock, electrónica)"
+      description: "Género musical (ej: jazz, salsa, rock, electrónica, reggaeton, cumbia)"
     date:
       type: string
-      description: "Fecha en formato YYYY-MM-DD o expresión relativa ('este finde', 'esta semana')"
+      description: "Fecha o período (ej: 'este fin de semana', '2026-07-15')"
     artist:
       type: string
       description: "Nombre del artista o banda"

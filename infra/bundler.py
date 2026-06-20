@@ -11,6 +11,7 @@ from aws_cdk import aws_lambda as lambda_
 _LOCAL_PKGS: dict[str, list[str]] = {
     "webhook": ["whatsapp", "data", "common"],
     "agent": ["core", "openclaw", "whatsapp", "data", "common"],
+    "scraper": ["data", "common"],
 }
 
 # External PyPI deps (covers all transitive deps of the local packages above)
@@ -27,6 +28,12 @@ _EXTERNAL_DEPS: dict[str, list[str]] = {
         "aws-lambda-powertools>=3.0",
         "httpx>=0.27",
         "openai>=1.0.0",
+    ],
+    "scraper": [
+        "pyyaml>=6.0",
+        "boto3>=1.35",
+        "aws-lambda-powertools>=3.0",
+        "httpx>=0.27",
     ],
 }
 
@@ -50,9 +57,16 @@ class _LocalBundler:
             check=True,
         )
 
-        # Install external PyPI deps
+        # Install external PyPI deps targeting Lambda's Amazon Linux platform
         subprocess.run(
-            ["uv", "pip", "install", *_EXTERNAL_DEPS[self._service], "--target", str(out)],
+            [
+                "uv", "pip", "install",
+                "--python-platform", "linux",
+                "--python-version", "3.12",
+                "--only-binary", ":all:",
+                *_EXTERNAL_DEPS[self._service],
+                "--target", str(out),
+            ],
             check=True,
         )
 

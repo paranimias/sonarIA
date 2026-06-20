@@ -63,6 +63,39 @@ def test_send_text_raises_on_error():
         c.send_text(to=RECIPIENT, text="fail")
 
 
+def test_mark_as_read_sends_correct_payload():
+    captured: list[httpx.Request] = []
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        captured.append(request)
+        return httpx.Response(200, content=b'{"success": true}')
+
+    import json as _json
+
+    c = WhatsAppClient(access_token=ACCESS_TOKEN, phone_number_id=PHONE_NUMBER_ID)
+    c._http = httpx.Client(
+        base_url="https://graph.facebook.com/v19.0",
+        transport=httpx.MockTransport(handler),
+    )
+    c.mark_as_read(wamid="wamid.test123")
+
+    assert len(captured) == 1
+    body = _json.loads(captured[0].content)
+    assert body["status"] == "read"
+    assert body["message_id"] == "wamid.test123"
+    assert body["messaging_product"] == "whatsapp"
+
+
+def test_mark_as_read_fails_silently_on_error():
+    c = WhatsAppClient(access_token=ACCESS_TOKEN, phone_number_id=PHONE_NUMBER_ID)
+    c._http = httpx.Client(
+        base_url="https://graph.facebook.com/v19.0",
+        transport=_make_transport(status_code=500, body={"error": "server error"}),
+    )
+    # Should not raise
+    c.mark_as_read(wamid="wamid.test456")
+
+
 def test_send_media_posts_correct_type():
     captured: list[httpx.Request] = []
 

@@ -1,20 +1,16 @@
 name: recommend_music
-description: "Recomienda playlists, álbumes o canciones según el gusto del usuario."
+description: >
+  Recomienda artistas similares y canciones usando Last.fm.
+  Usa 'artist' para encontrar artistas parecidos y sus top tracks.
+  Usa 'genre' para ver lo más popular de un género (tag de Last.fm).
 input_schema:
   type: object
   properties:
-    genre:
-      type: string
-      description: "Género o subgénero musical"
-    mood:
-      type: string
-      description: "Estado de ánimo o momento (ej: 'para correr', 'para estudiar', 'fiesta')"
     artist:
       type: string
-      description: "Artista de referencia para encontrar música similar"
-    type:
+      description: "Artista de referencia (busca similares y sus canciones más populares)"
+    genre:
       type: string
-      enum: [playlist, album, song]
-      description: "Tipo de recomendación"
+      description: "Género como tag de Last.fm (ej: jazz, salsa, electronic, cumbia, reggaeton, rock)"
   required: []
 handler_module: "agent.tools.recommend_music"

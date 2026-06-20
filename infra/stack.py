@@ -9,6 +9,8 @@ from aws_cdk import (
     aws_apigatewayv2 as apigw,
     aws_apigatewayv2_integrations as integrations,
     aws_dynamodb as ddb,
+    aws_events as events,
+    aws_events_targets as targets,
     aws_lambda as lambda_,
     aws_lambda_event_sources as event_sources,
     aws_sqs as sqs,
@@ -107,6 +109,7 @@ class SonariaStack(cdk.Stack):
                 "META_ACCESS_TOKEN": _ssm("meta/access-token"),
                 "OPENAI_API_KEY": _ssm("openai/api-key"),
                 # Content dirs are bundled into /var/task/
+                "LASTFM_API_KEY": _ssm("lastfm/api-key"),
                 "SHARED_DIR": "/var/task/shared",
                 "AGENT_DIR": "/var/task/agent",
             },
@@ -118,6 +121,31 @@ class SonariaStack(cdk.Stack):
                 batch_size=1,       # process one message at a time
                 max_concurrency=5,  # at most 5 parallel agent executions
             )
+        )
+
+        # ── Lambda: scraper ───────────────────────────────────────────────
+        scraper_fn = lambda_.Function(
+            self,
+            "ScraperFn",
+            function_name=f"sonaria-scraper-{stage}",
+            runtime=lambda_.Runtime.PYTHON_3_12,
+            handler="handler.handler",
+            code=lambda_code(_REPO_ROOT, "scraper"),
+            timeout=Duration.seconds(120),
+            memory_size=256,
+            environment={
+                "SONARIA_TABLE_NAME": table.table_name,
+            },
+        )
+        table.grant_write_data(scraper_fn)
+
+        # Daily cron at 05:00 UTC = midnight Colombia time (UTC-5)
+        events.Rule(
+            self,
+            "ScraperDailyCron",
+            rule_name=f"sonaria-scraper-daily-{stage}",
+            schedule=events.Schedule.cron(minute="0", hour="5"),
+            targets=[targets.LambdaFunction(scraper_fn)],
         )
 
         # ── API Gateway HTTP API ──────────────────────────────────────────

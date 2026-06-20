@@ -43,6 +43,17 @@ class WhatsAppClient:
         response.raise_for_status()
         return response.json()
 
+    def mark_as_read(self, *, wamid: str) -> None:
+        """Send read receipt — shows double blue ticks. Fails silently."""
+        try:
+            resp = self._http.post(
+                f"/{self._phone_number_id}/messages",
+                json={"messaging_product": "whatsapp", "status": "read", "message_id": wamid},
+            )
+            resp.raise_for_status()
+        except Exception:
+            pass
+
     def close(self) -> None:
         self._http.close()
 

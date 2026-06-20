@@ -49,6 +49,10 @@ def _process_record(record: dict) -> None:
 
     bind_context(logger, phone_number=wa_id, wamid=wamid, agent_id="sonaria-bogota")
 
+    # Signal immediately that the message was received
+    with _build_wa_client(phone_number_id) as wa:
+        wa.mark_as_read(wamid=wamid)
+
     table = get_table(_cfg("SONARIA_TABLE_NAME", "sonaria"))
     config = resolve(
         shared_dir=_cfg("SHARED_DIR", str(_REPO_ROOT / "shared")),
