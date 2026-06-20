@@ -62,7 +62,17 @@ def test_tool_handles_are_callable(cfg):
 
 
 def test_stub_tools_return_ok(cfg):
+    from unittest.mock import MagicMock, patch
+
     tool_map = {t.name: t for t in cfg.tool_defs}
-    for name in ("recommend_events", "recommend_music"):
-        result = tool_map[name].handle({}, ctx={})
-        assert result["ok"] is True
+
+    # recommend_events queries DynamoDB — mock the table
+    mock_table = MagicMock()
+    mock_table.query.return_value = {"Items": []}
+    with patch("agent.tools.recommend_events.get_table", return_value=mock_table):
+        result = tool_map["recommend_events"].handle({}, ctx={})
+    assert result["ok"] is True
+
+    # recommend_music requires artist/genre + API key — verify it returns a structured response
+    result_music = tool_map["recommend_music"].handle({}, ctx={})
+    assert "ok" in result_music

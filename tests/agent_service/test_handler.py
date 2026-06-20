@@ -33,6 +33,9 @@ def test_full_turn_persists_and_sends(table, monkeypatch):
         def send_text(self, *, to, text):
             sent.append({"to": to, "text": text})
 
+        def mark_as_read(self, *, wamid):
+            pass
+
         def __enter__(self):
             return self
 
@@ -88,6 +91,9 @@ def test_history_included_in_runtime_call(table, monkeypatch):
             pass
 
         def send_text(self, **kw):
+            pass
+
+        def mark_as_read(self, *, wamid):
             pass
 
         def __enter__(self):
