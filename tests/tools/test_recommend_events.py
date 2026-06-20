@@ -80,13 +80,15 @@ def test_handle_empty_db_returns_note():
     assert result["note"] is not None
 
 
-def test_handle_limits_to_12():
-    from agent.tools.recommend_events import handle
+def test_handle_limits_to_page_size():
+    from agent.tools.recommend_events import _PAGE_SIZE, handle
 
     many = [
-        {"title": f"Evento {i}", "source": "tuboleta", "url": f"http://x.co/{i}"} for i in range(20)
+        {"title": f"Evento {i}", "source": "tuboleta", "url": f"http://x.co/{i}"}
+        for i in range(_PAGE_SIZE + 10)
     ]
     with patch("agent.tools.recommend_events.get_table", return_value=_make_table(many)):
         result = handle({}, ctx={})
 
-    assert len(result["events"]) <= 12
+    assert len(result["events"]) <= _PAGE_SIZE
+    assert result["has_more"] is True

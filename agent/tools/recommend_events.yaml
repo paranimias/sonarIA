@@ -1,21 +1,24 @@
 name: recommend_events
 description: >
-  Consulta la base de datos de eventos en Bogotá (actualizada diariamente).
-  Incluye conciertos de Eventbrite, tuboleta y la agenda cultural de Bogotá.
-  Llama sin filtros para ver todos los eventos disponibles.
-  Usa genre solo para géneros específicos como jazz, rock, salsa, electrónica.
-  Para preguntas generales sobre eventos o conciertos, no uses el parámetro genre.
+  Consulta la base de datos de conciertos y eventos musicales en Bogotá (actualizada diariamente).
+  SOLO contiene eventos explícitamente musicales: conciertos, recitales, festivales.
+  NO incluyas en tu respuesta eventos que no sean musicales.
+  Llama sin filtros para ver todos los conciertos disponibles.
+  Si el usuario pide "más eventos" o "otros conciertos", llama de nuevo con offset=15.
+  Usa genre solo para géneros específicos: jazz, rock, salsa, electrónica, reggaeton, cumbia.
+  Para preguntas generales sobre conciertos o eventos musicales, no uses el parámetro genre.
+  El campo has_more=true indica que hay más eventos disponibles.
 input_schema:
   type: object
   properties:
     genre:
       type: string
-      description: "Género musical (ej: jazz, salsa, rock, electrónica, reggaeton, cumbia)"
-    date:
-      type: string
-      description: "Fecha o período (ej: 'este fin de semana', '2026-07-15')"
+      description: "Género musical específico (ej: jazz, salsa, rock, electrónica)"
     artist:
       type: string
       description: "Nombre del artista o banda"
+    offset:
+      type: integer
+      description: "Para ver más eventos: 0 (primera página), 15 (segunda), 30 (tercera)"
   required: []
 handler_module: "agent.tools.recommend_events"

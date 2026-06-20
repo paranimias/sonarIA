@@ -7,14 +7,18 @@ from data.table import get_table
 _MUSIC_TERMS = {"música", "musica", "musical", "musicales", "concierto", "conciertos", "show"}
 
 
+_PAGE_SIZE = 15
+
+
 def handle(tool_input: dict, *, ctx: dict) -> dict:
     genre = (tool_input.get("genre") or "").strip().lower()
     artist = (tool_input.get("artist") or "").strip().lower()
+    offset = max(0, int(tool_input.get("offset") or 0))
 
     table = get_table(os.environ.get("SONARIA_TABLE_NAME", "sonaria"))
     resp = table.query(
         KeyConditionExpression=Key("PK").eq("EVENTS") & Key("SK").begins_with("EVENT#"),
-        Limit=100,
+        Limit=200,
     )
     _INTERNAL = {"PK", "SK", "ttl"}
     events: list[dict] = [
@@ -26,24 +30,26 @@ def handle(tool_input: dict, *, ctx: dict) -> dict:
 
     if genre:
         if genre in _MUSIC_TERMS:
-            # General music query → prefer events tagged as música but include all
             music_events = [e for e in events if e.get("genre", "").lower() == "música"]
             events = music_events if music_events else events
         else:
-            # Specific genre (jazz, rock, salsa…) → match title or genre field
             events = [
                 e
                 for e in events
                 if genre in (e.get("title", "") + " " + e.get("genre", "")).lower()
             ]
 
+    total = len(events)
+    page = events[offset : offset + _PAGE_SIZE]
+
     return {
         "ok": True,
-        "events": events[:12],
-        "total_found": len(events),
+        "events": page,
+        "total_found": total,
+        "has_more": (offset + len(page)) < total,
         "note": (
             None
-            if events
-            else "Sin eventos en base de datos. El scraper corre a medianoche (hora Colombia)."
+            if page
+            else "Sin eventos musicales en base de datos. El scraper corre a medianoche Colombia."
         ),
     }
