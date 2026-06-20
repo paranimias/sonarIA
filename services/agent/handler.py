@@ -7,7 +7,7 @@ from core.agent import run_turn
 from core.resolver import resolve
 from data.conversations import append_turn, get_turns
 from data.table import get_table
-from openclaw_adapter.client import OpenAIRuntime
+from openclaw_adapter.client import LangChainRuntime
 from whatsapp.client import WhatsAppClient
 
 logger = get_logger()
@@ -19,8 +19,8 @@ def _cfg(key: str, default: str = "") -> str:
     return os.environ.get(key, default)
 
 
-def _build_runtime() -> OpenAIRuntime:
-    return OpenAIRuntime(api_key=_cfg("OPENAI_API_KEY"))
+def _build_runtime() -> LangChainRuntime:
+    return LangChainRuntime(api_key=_cfg("OPENAI_API_KEY"))
 
 
 def _build_wa_client(phone_number_id: str) -> WhatsAppClient:

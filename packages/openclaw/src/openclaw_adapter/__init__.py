@@ -1,3 +1,3 @@
-from .client import OpenAIRuntime
+from .client import LangChainRuntime
 
-__all__ = ["OpenAIRuntime"]
+__all__ = ["LangChainRuntime"]
